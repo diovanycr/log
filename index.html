@@ -3,311 +3,242 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Gestão de Manicures</title>
-  
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0033A0">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --color-primary: #0033A0;
-      --color-primary-dark: #002080;
-      --color-secondary: #E30613;
-      --color-bg: #F5F5F5;
-      --color-surface: #ffffff;
-      --color-text: #1a237e;
-      --color-text-muted: #6b7280;
-      --color-border: #e0e0e0;
-      --color-success: #4CAF50;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-      --radius: 8px;
-    }
-    body { font-family: 'Outfit', sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
-    .app-container { min-height: 100vh; display: flex; }
-    
-    /* SIDEBAR - Desktop Style */
-    .sidebar { width: 280px; height: 100vh; background: var(--color-surface); border-right: 1px solid var(--color-border); display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 100; }
-    
-    /* Logo Section */
-    .sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--color-border); }
-    .logo-container { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .logo-marrie { width: 70px; height: auto; }
-    .logo-tramontina { width: 90px; height: auto; background: var(--color-primary); padding: 0.35rem 0.75rem; border-radius: 4px; }
-    .sidebar-subtitle { font-size: 0.8125rem; color: var(--color-text-muted); margin-top: 0.5rem; }
-    
-    /* Botão Afiação */
-    .btn-afiacao { background: var(--color-primary); color: white; border: none; padding: 0.875rem 1.25rem; border-radius: 6px; font-size: 0.9375rem; font-weight: 600; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; transition: all 0.2s; }
-    .btn-afiacao:hover { background: var(--color-primary-dark); transform: translateY(-1px); }
-    
-    /* Menu Navigation */
-    .sidebar-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
-    .nav-item { list-style: none; }
-    .nav-link { display: flex; align-items: center; gap: 0.875rem; padding: 0.875rem 1.5rem; color: var(--color-text); text-decoration: none; transition: all 0.2s; font-weight: 500; border-left: 3px solid transparent; }
-    .nav-link:hover { background: rgba(0, 51, 160, 0.04); }
-    .nav-link.active { background: rgba(0, 51, 160, 0.08); color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
-    
-    /* User Footer */
-    .sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--color-border); }
-    .user-email { font-size: 0.8125rem; color: var(--color-text-muted); padding: 0.75rem; background: var(--color-bg); border-radius: 6px; margin-bottom: 0.875rem; text-align: center; }
-    .btn-logout { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); padding: 0.75rem; border-radius: 6px; font-size: 0.9375rem; font-weight: 500; cursor: pointer; width: 100%; transition: all 0.2s; }
-    .btn-logout:hover { background: var(--color-bg); }
-    
-    /* Main Content */
-    .main-content { margin-left: 280px; flex: 1; padding: 2.5rem; padding-bottom: 2rem; }
-    .page-header { margin-bottom: 2rem; }
-    .page-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem; }
-    .page-subtitle { color: var(--color-text-muted); font-size: 1rem; }
-    
-    /* Stats Grid */
-    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
-    .stat-card { background: var(--color-surface); border-radius: var(--radius); padding: 2rem 1.5rem; box-shadow: var(--shadow-sm); border-top: 4px solid transparent; transition: all 0.3s; }
-    .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .stat-card.blue { border-top-color: var(--color-primary); }
-    .stat-card.red { border-top-color: var(--color-secondary); }
-    .stat-label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--color-text); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-    .stat-label.blue { color: var(--color-primary); }
-    .stat-label.red { color: var(--color-secondary); }
-    .stat-value { display: block; font-size: 3rem; font-weight: 700; font-family: 'Playfair Display', serif; line-height: 1; }
-    .stat-value.blue { color: var(--color-primary); }
-    .stat-value.red { color: var(--color-secondary); }
-    
-    /* Recent Section */
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    .section-title { font-size: 1.75rem; font-weight: 600; color: var(--color-primary); font-family: 'Playfair Display', serif; }
-    .section-link { font-size: 0.875rem; font-weight: 600; color: var(--color-primary); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    .recent-list { background: var(--color-surface); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-    .recent-item { padding: 1.5rem; border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
-    .recent-item:last-child { border-bottom: none; }
-    .recent-item:hover { background: rgba(0, 51, 160, 0.02); }
-    .recent-item-info h4 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.375rem; }
-    .recent-item-info p { font-size: 0.875rem; color: var(--color-text-muted); }
-    .badge { padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .badge-success { background: #E8F5E9; color: #2E7D32; }
-    
-    /* FAB Button */
-    .fab { position: fixed; bottom: 2rem; right: 2rem; width: 64px; height: 64px; border-radius: 50%; background: var(--color-primary); color: white; border: none; box-shadow: 0 6px 20px rgba(0, 51, 160, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 50; }
-    .fab:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(0, 51, 160, 0.5); }
-    
-    .loading-spinner { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 999; }
-    .loading-spinner.show { display: flex; }
-    .spinner { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    
-    /* Mobile adjustments */
-    @media (max-width: 1023px) {
-      .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
-      .sidebar.open { transform: translateX(0); }
-      .main-content { margin-left: 0; padding: 1.5rem 1rem; padding-top: 80px; }
-      .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .fab { bottom: 1rem; right: 1rem; width: 56px; height: 56px; }
-    }
-  </style>
+  <title>Dashboard - Marriê Beauty | Tramontina</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png">
 </head>
 <body>
   <div class="app-container">
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="logo-container">
-          <img src="https://assets.betalabs.net/fit-in/120x0/production/marriebeauty/extra_fields/17/phpzYWXRK1758825485.png" alt="Marrié Beauty" class="logo-marrie">
-          <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" alt="Tramontina" class="logo-tramontina">
+    <header class="mobile-header">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <img src="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png" 
+           alt="Marriê Beauty" 
+           style="height: 40px;">
+      <div style="width: 40px;"></div>
+    </header>
+
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <nav class="nav-drawer" id="nav-drawer">
+      <div class="drawer-header">
+        <img src="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png" 
+             alt="Marriê Beauty" 
+             class="drawer-logo-img">
+        <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" 
+             alt="Tramontina" 
+             style="height: 30px; margin-top: 0.5rem;">
+        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.5rem;">
+          Gestão de Assinaturas e Kits
+        </p>
+        <div class="tramontina-badge" style="margin-top: 0.75rem;">
+          🔧 Afiação Autorizada
         </div>
-        <p class="sidebar-subtitle">Gestão de Assinaturas e Kits</p>
-        
-        <button class="btn-afiacao">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+      </div>
+      
+      <div class="drawer-nav">
+        <a href="index.html" class="nav-link active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
-          AFIAÇÃO AUTORIZADA
-        </button>
+          <span>Dashboard</span>
+        </a>
+        
+        <a href="pages/manicures.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Manicures</span>
+        </a>
+        
+        <a href="pages/alerts.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span>Alertas de Troca</span>
+        </a>
       </div>
-
-      <nav class="sidebar-nav">
-        <ul style="list-style: none; padding: 0;">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link active">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/manicures.html" class="nav-link">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-              </svg>
-              <span>Manicures</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/alerts.html" class="nav-link">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-              </svg>
-              <span>Alertas de Troca</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="user-email" id="user-email">Carregando...</div>
-        <button class="btn-logout" id="logout-btn">SAIR DO SISTEMA</button>
+      
+      <div class="drawer-footer">
+        <div class="user-info" id="user-info">Carregando...</div>
+        <button class="btn btn-secondary btn-full" id="logout-btn">SAIR DO SISTEMA</button>
       </div>
-    </aside>
+    </nav>
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
       <div class="page-header">
-        <h1 class="page-title">Dashboard</h1>
+        <h2 class="page-title">Dashboard</h2>
         <p class="page-subtitle">Controle de Afiação e Troca de Kits Tramontina</p>
       </div>
 
       <div class="stats-grid">
-        <div class="stat-card blue">
-          <span class="stat-label blue">TOTAL DE PARCEIRAS</span>
-          <span class="stat-value blue" id="total-manicures">0</span>
+        <div class="stat-card">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase;">
+            Total de Parceiras
+          </span>
+          <div class="stat-card-value" id="total-manicures">0</div>
         </div>
 
-        <div class="stat-card red">
-          <span class="stat-label red">TROCAS PENDENTES</span>
-          <span class="stat-value red" id="trocas-pendentes">0</span>
+        <div class="stat-card">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-danger); text-transform: uppercase;">
+            Trocas Pendentes
+          </span>
+          <div class="stat-card-value" id="pending-exchanges" style="color: var(--color-danger);">0</div>
         </div>
       </div>
 
-      <div class="section-header">
-        <h2 class="section-title">Manicures Recentes</h2>
-        <a href="pages/manicures.html" class="section-link">VER TODAS →</a>
-      </div>
-
-      <div class="recent-list" id="recent-list">
-        <div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">
-          Carregando...
+      <div class="section-card">
+        <div class="section-header">
+          <h3>Manicures Recentes</h3>
+          <a href="pages/manicures.html">VER TODAS →</a>
+        </div>
+        <div class="item-list" id="recent-manicures">
+          <div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">
+            <div class="spinner" style="margin: 0 auto 1rem;"></div>
+            Buscando informações...
+          </div>
         </div>
       </div>
     </main>
 
-    <button class="fab" onclick="window.location.href='pages/new-manicure.html'">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    <button class="fab" onclick="window.location.href='pages/new-manicure.html'" aria-label="Adicionar nova manicure">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: white;">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
     </button>
   </div>
 
-  <div class="loading-spinner" id="loading-spinner"><div class="spinner"></div></div>
+  <div class="loading-spinner" id="loading-spinner">
+    <div class="spinner"></div>
+  </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script type="module">
+    import { auth, database } from './config/firebase-config.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/manicure-troca/service-worker.js');
-    }
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDEEwNYA30Jb59CcVvhhsqF1B1hCQ410UM",
-      authDomain: "parceiro-be3e9.firebaseapp.com",
-      databaseURL: "https://parceiro-be3e9-default-rtdb.firebaseio.com",
-      projectId: "parceiro-be3e9",
-      storageBucket: "parceiro-be3e9.firebasestorage.app",
-      messagingSenderId: "619982778395",
-      appId: "1:619982778395:web:25c141958b7c06da02c8be"
+    const Utils = {
+      formatDate: (ts) => ts ? new Intl.DateTimeFormat('pt-BR').format(new Date(ts)) : '---',
+      getDaysDiff: (ts) => Math.ceil((ts - Date.now()) / (1000 * 60 * 60 * 24))
     };
 
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const database = firebase.database();
+    // Menu toggle
+    const navDrawer = document.getElementById('nav-drawer');
+    const navOverlay = document.getElementById('nav-overlay');
+    const menuToggle = document.getElementById('menu-toggle');
 
-    auth.onAuthStateChanged(user => {
+    menuToggle.onclick = () => {
+      navDrawer.classList.add('open');
+      navOverlay.classList.add('open');
+    };
+
+    navOverlay.onclick = () => {
+      navDrawer.classList.remove('open');
+      navOverlay.classList.remove('open');
+    };
+
+    // Auth state
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        document.getElementById('user-email').textContent = user.email;
-        loadDashboard();
+        document.getElementById('user-info').textContent = user.email;
+        
+        try {
+          const snapshot = await get(ref(database, `users/${user.uid}/manicures`));
+          
+          if (snapshot.exists()) {
+            const manicures = Object.entries(snapshot.val()).map(([id, data]) => ({ id, ...data }));
+            
+            // Update stats
+            document.getElementById('total-manicures').textContent = manicures.length;
+            
+            const now = Date.now();
+            const pending = manicures.filter(m => 
+              m.nextExchangeDate && (m.nextExchangeDate - now) < (3 * 24 * 60 * 60 * 1000)
+            ).length;
+            document.getElementById('pending-exchanges').textContent = pending;
+
+            // Show recent manicures
+            const recent = manicures
+              .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+              .slice(0, 5);
+            
+            if (recent.length > 0) {
+              document.getElementById('recent-manicures').innerHTML = recent.map(m => {
+                const daysDiff = Utils.getDaysDiff(m.nextExchangeDate);
+                const isOverdue = daysDiff < 0;
+                const badgeClass = isOverdue ? 'badge-danger' : 'badge-success';
+                const badgeText = isOverdue ? 'VENCIDO' : 'EM DIA';
+                
+                return `
+                  <div class="list-item" onclick="window.location.href='pages/manicure-details.html?id=${m.id}'">
+                    <div>
+                      <h4>${m.name}</h4>
+                      <p>Próxima troca: ${Utils.formatDate(m.nextExchangeDate)}</p>
+                    </div>
+                    <span class="badge ${badgeClass}">${badgeText}</span>
+                  </div>
+                `;
+              }).join('');
+            } else {
+              document.getElementById('recent-manicures').innerHTML = `
+                <div class="empty-state">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                  <h3>Nenhuma parceira cadastrada</h3>
+                  <p>Clique no botão + para adicionar a primeira parceira</p>
+                </div>
+              `;
+            }
+          } else {
+            document.getElementById('recent-manicures').innerHTML = `
+              <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <h3>Nenhuma parceira cadastrada</h3>
+                <p>Clique no botão + para adicionar a primeira parceira</p>
+              </div>
+            `;
+          }
+        } catch (error) {
+          console.error('Erro ao carregar dados:', error);
+          document.getElementById('recent-manicures').innerHTML = `
+            <div class="alert alert-danger">
+              <strong>Erro!</strong> Não foi possível carregar as informações. Tente novamente.
+            </div>
+          `;
+        }
+      } else {
+        window.location.href = 'pages/login.html';
       }
     });
 
+    // Logout
     document.getElementById('logout-btn').onclick = () => {
-      auth.signOut().then(() => window.location.href = 'pages/login.html');
-    };
-
-    function formatDate(d) {
-      return new Date(d).toLocaleDateString('pt-BR');
-    }
-
-    function calcDays(date) {
-      const today = new Date(); today.setHours(0,0,0,0);
-      const target = new Date(date); target.setHours(0,0,0,0);
-      return Math.ceil((target - today) / 86400000);
-    }
-
-    async function loadDashboard() {
-      try {
-        document.getElementById('loading-spinner').classList.add('show');
-        
-        const snap = await database.ref('manicures').once('value');
-        const data = snap.val();
-        
-        if (!data) {
-          updateStats([], {});
-          renderRecent([]);
-          document.getElementById('loading-spinner').classList.remove('show');
-          return;
-        }
-
-        const manicures = Object.keys(data).map(k => ({ id: k, ...data[k] }));
-        
-        updateStats(manicures);
-        renderRecent(manicures.slice(0, 5));
-        
-        document.getElementById('loading-spinner').classList.remove('show');
-      } catch (e) {
-        console.error(e);
-        document.getElementById('loading-spinner').classList.remove('show');
-      }
-    }
-
-    function updateStats(manicures) {
-      const total = manicures.length;
-      let trocasPendentes = 0;
-      
-      manicures.forEach(m => {
-        if (m.status === 'active') {
-          const days = calcDays(m.nextExchangeDate);
-          if (days <= 2) trocasPendentes++;
-        }
+      signOut(auth).then(() => {
+        window.location.href = 'pages/login.html';
+      }).catch((error) => {
+        console.error('Erro ao sair:', error);
+        alert('Erro ao fazer logout. Tente novamente.');
       });
-      
-      document.getElementById('total-manicures').textContent = total;
-      document.getElementById('trocas-pendentes').textContent = trocasPendentes;
-    }
-
-    function renderRecent(manicures) {
-      const container = document.getElementById('recent-list');
-      
-      if (manicures.length === 0) {
-        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">Nenhuma manicure cadastrada</div>';
-        return;
-      }
-
-      container.innerHTML = manicures.map(m => `
-        <div class="recent-item">
-          <div class="recent-item-info">
-            <h4>${m.name}</h4>
-            <p>Próxima troca: ${formatDate(m.nextExchangeDate)}</p>
-          </div>
-          <span class="badge badge-success">EM DIA</span>
-        </div>
-      `).join('');
-    }
+    };
   </script>
 </body>
 </html>
