@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alertas - Gestão de Manicures</title>
+  <title>Alertas - Marriê Beauty | Tramontina</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -15,26 +15,28 @@
     }
 
     :root {
-      --color-primary: #d946ef;
-      --color-primary-dark: #a21caf;
-      --color-secondary: #fbbf24;
-      --color-bg: #fafafa;
+      --color-primary: #0033A0;
+      --color-primary-light: #0047CC;
+      --color-primary-dark: #002080;
+      --color-secondary: #C8102E;
+      --color-bg: #F5F5F7;
       --color-surface: #ffffff;
-      --color-text: #1f2937;
-      --color-text-muted: #6b7280;
-      --color-border: #e5e7eb;
-      --color-success: #10b981;
-      --color-warning: #f59e0b;
-      --color-danger: #ef4444;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --color-text: #212529;
+      --color-text-muted: #6c757d;
+      --color-border: #dee2e6;
+      --color-success: #28a745;
+      --color-warning: #ffc107;
+      --color-danger: #dc3545;
+      --shadow-sm: 0 2px 4px rgba(0, 51, 160, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 51, 160, 0.12);
+      --shadow-lg: 0 8px 24px rgba(0, 51, 160, 0.16);
+      --gradient-blue: linear-gradient(135deg, #0033A0 0%, #0047CC 100%);
       --radius: 16px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: var(--color-bg);
       color: var(--color-text);
       line-height: 1.6;
@@ -56,14 +58,14 @@
       left: 0;
       right: 0;
       height: 64px;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      background: var(--gradient-blue);
       color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 1rem;
       z-index: 100;
-      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.2);
+      box-shadow: var(--shadow-md);
     }
 
     .mobile-header h1 {
@@ -127,7 +129,7 @@
     }
 
     .drawer-header {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      background: var(--gradient-blue);
       color: white;
       padding: 2rem 1.5rem 1.5rem;
     }
@@ -180,11 +182,11 @@
     }
 
     .nav-link:active {
-      background: rgba(217, 70, 239, 0.05);
+      background: rgba(0, 51, 160, 0.05);
     }
 
     .nav-link.active {
-      background: rgba(217, 70, 239, 0.1);
+      background: rgba(0, 51, 160, 0.1);
       color: var(--color-primary);
       border-left-color: var(--color-primary);
     }
@@ -224,7 +226,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
       margin-bottom: 0.25rem;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      background: var(--gradient-blue);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -495,7 +497,7 @@
     }
 
     .bottom-nav-item:active {
-      background: rgba(217, 70, 239, 0.05);
+      background: rgba(0, 51, 160, 0.05);
     }
 
     .bottom-nav-item.active {
@@ -567,18 +569,18 @@
       cursor: pointer;
       transition: var(--transition);
       text-decoration: none;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      background: var(--gradient-blue);
       color: white;
-      box-shadow: 0 4px 12px rgba(217, 70, 239, 0.3);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-primary:active {
       transform: translateY(1px);
-      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.3);
+      box-shadow: var(--shadow-md);
     }
 
     .btn-secondary {
@@ -710,7 +712,7 @@
           </svg>
           <div class="drawer-title">
             <h2>Gestão Manicures</h2>
-            <p>Controle de Kits</p>
+            <p>Controle de Kits Tramontina</p>
           </div>
         </div>
       </div>
@@ -776,11 +778,11 @@
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <div class="stat-card" style="--card-color: #ef4444; --icon-bg: rgba(239, 68, 68, 0.1);">
+        <div class="stat-card" style="--card-color: #dc3545; --icon-bg: rgba(220, 53, 69, 0.1);">
           <div class="stat-card-header">
             <span class="stat-card-title">Trocas Atrasadas</span>
             <span class="stat-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="8" x2="12" y2="12"/>
                 <line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -791,11 +793,11 @@
           <div class="stat-card-desc">Precisam de atenção urgente</div>
         </div>
 
-        <div class="stat-card" style="--card-color: #f59e0b; --icon-bg: rgba(245, 158, 11, 0.1);">
+        <div class="stat-card" style="--card-color: #ffc107; --icon-bg: rgba(255, 193, 7, 0.1);">
           <div class="stat-card-header">
             <span class="stat-card-title">Trocas Próximas</span>
             <span class="stat-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffc107" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
@@ -811,7 +813,7 @@
         <div class="section-card">
           <div class="section-header">
             <h2 class="section-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="8" x2="12" y2="12"/>
                 <line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -828,7 +830,7 @@
         <div class="section-card">
           <div class="section-header">
             <h2 class="section-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffc107" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
@@ -915,7 +917,6 @@
   <script type="module">
     console.log('🚀 Iniciando página de alertas...');
     
-    // ✅ IMPORTA DIRETAMENTE DO FIREBASE SDK MODULAR
     import { auth } from '../config/firebase-config.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { dbManager } from '../js/database.js';
@@ -1090,7 +1091,6 @@
       }
     }
 
-    // ✅ USA onAuthStateChanged DIRETAMENTE
     console.log('🔐 Verificando autenticação...');
     
     onAuthStateChanged(auth, async (user) => {
