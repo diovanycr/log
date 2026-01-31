@@ -3,247 +3,1218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Marriê Beauty | Tramontina</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png">
+  <title>Dashboard - Gestão de Manicures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #d946ef;
+      --color-primary-dark: #a21caf;
+      --color-secondary: #fbbf24;
+      --color-bg: #fafafa;
+      --color-surface: #ffffff;
+      --color-text: #1f2937;
+      --color-text-muted: #6b7280;
+      --color-border: #e5e7eb;
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Mobile-First Layout */
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Mobile Header */
+    .mobile-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.2);
+    }
+
+    .mobile-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .menu-toggle:active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Navigation Drawer */
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--color-surface);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .nav-drawer.open {
+      left: 0;
+    }
+
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 150;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .nav-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drawer-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: white;
+      padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .drawer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .drawer-logo svg {
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.1); }
+    }
+
+    .drawer-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .drawer-title p {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .drawer-nav {
+      padding: 1rem 0;
+    }
+
+    .nav-item {
+      list-style: none;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-link:active {
+      background: rgba(217, 70, 239, 0.05);
+    }
+
+    .nav-link.active {
+      background: rgba(217, 70, 239, 0.1);
+      color: var(--color-primary);
+      border-left-color: var(--color-primary);
+    }
+
+    .drawer-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    .user-info {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--color-bg);
+      border-radius: 8px;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 64px;
+      padding: 1.5rem 1rem;
+      padding-bottom: 80px;
+      flex: 1;
+    }
+
+    .page-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-subtitle {
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--card-color, var(--color-primary)), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .stat-card:active::before {
+      opacity: 1;
+    }
+
+    .stat-card:active {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card-title {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .stat-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--icon-bg);
+    }
+
+    .stat-card-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .stat-card-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--color-bg);
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .view-all {
+      font-size: 0.875rem;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* List Items */
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: var(--color-bg);
+      border-radius: 12px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .list-item:active {
+      transform: scale(0.98);
+      background: #f3f4f6;
+    }
+
+    .item-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-info p {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Alert Banner */
+    .alert-banner {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-left: 4px solid var(--color-warning);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: start;
+      gap: 0.75rem;
+    }
+
+    .alert-banner-icon {
+      flex-shrink: 0;
+      color: var(--color-warning);
+    }
+
+    .alert-banner-content h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #92400e;
+    }
+
+    .alert-banner-content p {
+      font-size: 0.875rem;
+      color: #78350f;
+    }
+
+    /* Badges */
+    .badge {
+      padding: 0.375rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-secondary {
+      background: #e5e7eb;
+      color: #4b5563;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      color: white;
+      box-shadow: 0 4px 12px rgba(217, 70, 239, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:active {
+      background: var(--color-bg);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 80px;
+      right: 1rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(217, 70, 239, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 50;
+    }
+
+    .fab:active {
+      transform: scale(0.9);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      flex: 1;
+      max-width: 100px;
+    }
+
+    .bottom-nav-item:active {
+      background: rgba(217, 70, 239, 0.05);
+    }
+
+    .bottom-nav-item.active {
+      color: var(--color-primary);
+    }
+
+    .bottom-nav-item svg {
+      stroke: currentColor;
+    }
+
+    .bottom-nav-item span {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .empty-state svg {
+      opacity: 0.2;
+      margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .empty-state p {
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .loading-spinner.show {
+      display: flex;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Loading Animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .loading {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Tablet Styles */
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .mobile-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .main-content {
+        padding: 2rem;
+      }
+
+      .fab {
+        bottom: 2rem;
+        right: 2rem;
+        width: 64px;
+        height: 64px;
+      }
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 1024px) {
+      .mobile-header,
+      .bottom-nav,
+      .fab {
+        display: none;
+      }
+
+      .app-container {
+        flex-direction: row;
+      }
+
+      .nav-drawer {
+        position: relative;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        box-shadow: none;
+        border-right: 1px solid var(--color-border);
+      }
+
+      .nav-overlay {
+        display: none;
+      }
+
+      .drawer-footer {
+        position: sticky;
+      }
+
+      .main-content {
+        margin-top: 0;
+        flex: 1;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2.5rem;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card:hover::before {
+        opacity: 1;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .list-item:hover {
+        transform: scale(0.98);
+        background: #f3f4f6;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
+    <!-- Mobile Header -->
     <header class="mobile-header">
-      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+      <button class="menu-toggle" onclick="toggleNav()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="3" y1="12" x2="21" y2="12"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
-      <img src="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png" 
-           alt="Marriê Beauty" 
-           style="height: 40px;">
+      <h1>Gestão Manicures</h1>
       <div style="width: 40px;"></div>
     </header>
 
-    <div class="nav-overlay" id="nav-overlay"></div>
-    <nav class="nav-drawer" id="nav-drawer">
-      <div class="drawer-header">
-        <img src="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png" 
-             alt="Marriê Beauty" 
-             class="drawer-logo-img">
-        
-        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
-          <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" 
-               alt="Tramontina" 
-               style="height: 24px;">
-        </div>
-        
-        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.5rem;">
-          Gestão de Assinaturas e Kits
-        </p>
-        
-        <div class="tramontina-badge" style="margin-top: 0.75rem;">
-          🔧 Afiação Autorizada
-        </div>
-      </div>
-      
-      <div class="drawer-nav">
-        <a href="index.html" class="nav-link active">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-          <span>Dashboard</span>
-        </a>
-        
-        <a href="pages/manicures.html" class="nav-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          <span>Manicures</span>
-        </a>
-        
-        <a href="pages/alerts.html" class="nav-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-          </svg>
-          <span>Alertas de Troca</span>
-        </a>
-      </div>
-      
-      <div class="drawer-footer">
-        <div class="user-info" id="user-info">Carregando...</div>
-        <button class="btn btn-secondary btn-full" id="logout-btn">SAIR DO SISTEMA</button>
-      </div>
-    </nav>
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" onclick="toggleNav()"></div>
 
+    <!-- Navigation Drawer -->
+    <aside class="nav-drawer" id="navDrawer">
+      <div class="drawer-header">
+        <div class="drawer-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          </svg>
+          <div class="drawer-title">
+            <h2>Gestão Manicures</h2>
+            <p>Controle de Kits</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="drawer-nav">
+        <ul style="list-style: none; padding: 0;">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link active">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/manicures.html" class="nav-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Manicures</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/alerts.html" class="nav-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <span>Alertas</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="drawer-footer">
+        <div class="user-info" id="user-info">
+          Carregando...
+        </div>
+        <button class="btn btn-secondary btn-full" id="logout-btn">Sair</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
     <main class="main-content">
       <div class="page-header">
-        <h2 class="page-title">Dashboard</h2>
-        <p class="page-subtitle">Controle de Afiação e Troca de Kits Tramontina</p>
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-subtitle">Visão geral do sistema</p>
+        </div>
+        <button class="btn btn-primary" onclick="window.location.href='pages/new-manicure.html'" style="display: none;" id="desktop-add-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>Nova Manicure</span>
+        </button>
       </div>
 
+      <!-- Stats Grid -->
       <div class="stats-grid">
-        <div class="stat-card">
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase;">
-            Total de Parceiras
-          </span>
+        <div class="stat-card" style="--card-color: #d946ef; --icon-bg: rgba(217, 70, 239, 0.1);">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Total de Manicures</span>
+            <span class="stat-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d946ef" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+              </svg>
+            </span>
+          </div>
           <div class="stat-card-value" id="total-manicures">0</div>
+          <div class="stat-card-desc" id="total-desc">0 ativas</div>
         </div>
 
-        <div class="stat-card">
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-danger); text-transform: uppercase;">
-            Trocas Pendentes
-          </span>
-          <div class="stat-card-value" id="pending-exchanges" style="color: var(--color-danger);">0</div>
+        <div class="stat-card" style="--card-color: #f59e0b; --icon-bg: rgba(245, 158, 11, 0.1);">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Alertas</span>
+            <span class="stat-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </span>
+          </div>
+          <div class="stat-card-value" id="alerts-count">0</div>
+          <div class="stat-card-desc">Trocas pendentes</div>
+        </div>
+
+        <div class="stat-card" style="--card-color: #3b82f6; --icon-bg: rgba(59, 130, 246, 0.1);">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Planos Ativos</span>
+            <span class="stat-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                <path d="M6 3h12l4 6-10 12L2 9z"/>
+                <path d="M11 3 8 9l4 12 4-12-3-6z"/>
+                <path d="M2 9h20"/>
+              </svg>
+            </span>
+          </div>
+          <div class="stat-card-value" id="active-plans">0</div>
+          <div class="stat-card-desc">Assinaturas vigentes</div>
         </div>
       </div>
 
+      <!-- Alerts Section -->
+      <div id="alerts-section" style="display: none;">
+        <div class="alert-banner">
+          <div class="alert-banner-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="alert-banner-content">
+            <h4>Atenção: Trocas de Kit Pendentes</h4>
+            <p id="alert-count-text">Você tem trocas pendentes</p>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span>⚠️</span>
+              <span>Alertas Urgentes</span>
+            </h2>
+          </div>
+          <div class="item-list" id="alerts-list"></div>
+        </div>
+      </div>
+
+      <!-- Recent Manicures -->
       <div class="section-card">
         <div class="section-header">
-          <h3>Manicures Recentes</h3>
-          <a href="pages/manicures.html">VER TODAS →</a>
+          <h2 class="section-title">Manicures Recentes</h2>
+          <a href="pages/manicures.html" class="view-all">Ver todas →</a>
         </div>
         <div class="item-list" id="recent-manicures">
-          <div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">
-            <div class="spinner" style="margin: 0 auto 1rem;"></div>
-            Buscando informações...
+          <div class="loading" style="text-align: center; padding: 2rem; color: var(--color-text-muted);">
+            Verificando autenticação...
           </div>
         </div>
       </div>
     </main>
 
-    <button class="fab" onclick="window.location.href='pages/new-manicure.html'" aria-label="Adicionar nova manicure">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: white;">
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="bottom-nav-item active">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="pages/manicures.html" class="bottom-nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+        </svg>
+        <span>Manicures</span>
+      </a>
+      <a href="pages/alerts.html" class="bottom-nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span>Alertas</span>
+      </a>
+    </nav>
+
+    <!-- Floating Action Button (Mobile) -->
+    <button class="fab" onclick="window.location.href='pages/new-manicure.html'">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <line x1="12" y1="5" x2="12" y2="19"/>
         <line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
     </button>
   </div>
 
+  <!-- Loading Spinner -->
   <div class="loading-spinner" id="loading-spinner">
     <div class="spinner"></div>
   </div>
 
+  <script>
+    // Navigation Toggle
+    function toggleNav() {
+      const drawer = document.getElementById('navDrawer');
+      const overlay = document.querySelector('.nav-overlay');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    // Close drawer when clicking a link (mobile)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) {
+          toggleNav();
+        }
+      });
+    });
+
+    // Show desktop add button on larger screens
+    if (window.innerWidth >= 1024) {
+      document.getElementById('desktop-add-btn').style.display = 'inline-flex';
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        document.getElementById('desktop-add-btn').style.display = 'inline-flex';
+      } else {
+        document.getElementById('desktop-add-btn').style.display = 'none';
+      }
+    });
+  </script>
+
   <script type="module">
-    import { auth, database } from './config/firebase-config.js';
+    console.log('🚀 Iniciando aplicação...');
+    
+    // ✅ USA EXATAMENTE A MESMA ABORDAGEM DO manicures.html QUE FUNCIONA
+    import { auth } from './config/firebase-config.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { dbManager } from './js/database.js';
 
+    console.log('✅ Imports carregados');
+
+    let allManicures = [];
+    let currentUser = null;
+
+    // Utils
     const Utils = {
-      formatDate: (ts) => ts ? new Intl.DateTimeFormat('pt-BR').format(new Date(ts)) : '---',
-      getDaysDiff: (ts) => Math.ceil((ts - Date.now()) / (1000 * 60 * 60 * 24))
-    };
-
-    // Menu toggle
-    const navDrawer = document.getElementById('nav-drawer');
-    const navOverlay = document.getElementById('nav-overlay');
-    const menuToggle = document.getElementById('menu-toggle');
-
-    menuToggle.onclick = () => {
-      navDrawer.classList.add('open');
-      navOverlay.classList.add('open');
-    };
-
-    navOverlay.onclick = () => {
-      navDrawer.classList.remove('open');
-      navOverlay.classList.remove('open');
-    };
-
-    // Auth state
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        document.getElementById('user-info').textContent = user.email;
+      showLoading: () => {
+        document.getElementById('loading-spinner').classList.add('show');
+      },
+      hideLoading: () => {
+        document.getElementById('loading-spinner').classList.remove('show');
+      },
+      formatDate: (date) => {
+        return new Date(date).toLocaleDateString('pt-BR');
+      },
+      calculateDaysUntilExchange: (date) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const exchangeDate = new Date(date);
+        exchangeDate.setHours(0, 0, 0, 0);
+        const diff = Math.ceil((exchangeDate - today) / (1000 * 60 * 60 * 24));
+        return diff;
+      },
+      getAlerts: (manicures) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         
-        try {
-          const snapshot = await get(ref(database, `users/${user.uid}/manicures`));
-          
-          if (snapshot.exists()) {
-            const manicures = Object.entries(snapshot.val()).map(([id, data]) => ({ id, ...data }));
-            
-            // Update stats
-            document.getElementById('total-manicures').textContent = manicures.length;
-            
-            const now = Date.now();
-            const pending = manicures.filter(m => 
-              m.nextExchangeDate && (m.nextExchangeDate - now) < (3 * 24 * 60 * 60 * 1000)
-            ).length;
-            document.getElementById('pending-exchanges').textContent = pending;
+        return manicures.filter(m => {
+          if (m.status !== 'active' || !m.nextExchangeDate) return false;
+          const exchangeDate = new Date(m.nextExchangeDate);
+          exchangeDate.setHours(0, 0, 0, 0);
+          const diff = Math.ceil((exchangeDate - today) / (1000 * 60 * 60 * 24));
+          return diff <= 2;
+        }).sort((a, b) => new Date(a.nextExchangeDate) - new Date(b.nextExchangeDate));
+      }
+    };
 
-            // Show recent manicures
-            const recent = manicures
-              .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
-              .slice(0, 5);
-            
-            if (recent.length > 0) {
-              document.getElementById('recent-manicures').innerHTML = recent.map(m => {
-                const daysDiff = Utils.getDaysDiff(m.nextExchangeDate);
-                const isOverdue = daysDiff < 0;
-                const badgeClass = isOverdue ? 'badge-danger' : 'badge-success';
-                const badgeText = isOverdue ? 'VENCIDO' : 'EM DIA';
-                
-                return `
-                  <div class="list-item" onclick="window.location.href='pages/manicure-details.html?id=${m.id}'">
-                    <div>
-                      <h4>${m.name}</h4>
-                      <p>Próxima troca: ${Utils.formatDate(m.nextExchangeDate)}</p>
-                    </div>
-                    <span class="badge ${badgeClass}">${badgeText}</span>
-                  </div>
-                `;
-              }).join('');
-            } else {
-              document.getElementById('recent-manicures').innerHTML = `
-                <div class="empty-state">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-                  <h3>Nenhuma parceira cadastrada</h3>
-                  <p>Clique no botão + para adicionar a primeira parceira</p>
+    // ✅ USA EXATAMENTE A MESMA LÓGICA DO manicures.html
+    async function loadDashboard() {
+      console.log('═'.repeat(60));
+      console.log('🔄 INICIANDO CARREGAMENTO DO DASHBOARD');
+      console.log('═'.repeat(60));
+      
+      try {
+        Utils.showLoading();
+        
+        console.log('📞 Chamando dbManager.getAllManicures()...');
+        const data = await dbManager.getAllManicures();
+        
+        console.log('📦 Dados recebidos:', data);
+        
+        // ✅ MESMA LÓGICA DO manicures.html
+        if (!data) {
+          console.log('⚠️ Nenhuma manicure encontrada no banco');
+          allManicures = [];
+        } else {
+          allManicures = Object.keys(data).map(k => {
+            const manicure = { id: k, ...data[k] };
+            console.log('✅ Manicure carregada:', manicure.name, '| ID:', k);
+            return manicure;
+          });
+          console.log(`✅ Total de ${allManicures.length} manicures carregadas`);
+        }
+        
+        if (currentUser) {
+          console.log('👤 Atualizando info do usuário:', currentUser.email);
+          document.getElementById('user-info').textContent = currentUser.email;
+        }
+
+        console.log('📈 Calculando estatísticas...');
+        const activeCount = allManicures.filter(m => m.status === 'active').length;
+        console.log('✅ Manicures ativas:', activeCount);
+        
+        const alerts = Utils.getAlerts(allManicures);
+        console.log('⚠️ Alertas encontrados:', alerts.length);
+
+        console.log('🎨 Atualizando cards de estatísticas...');
+        document.getElementById('total-manicures').textContent = allManicures.length;
+        document.getElementById('total-desc').textContent = `${activeCount} ativas`;
+        document.getElementById('alerts-count').textContent = alerts.length;
+        document.getElementById('active-plans').textContent = activeCount;
+
+        console.log('📋 Renderizando seção de alertas...');
+        if (alerts.length > 0) {
+          document.getElementById('alerts-section').style.display = 'block';
+          document.getElementById('alert-count-text').textContent = 
+            `Você tem ${alerts.length} troca${alerts.length > 1 ? 's' : ''} de kit pendente${alerts.length > 1 ? 's' : ''}`;
+          
+          document.getElementById('alerts-list').innerHTML = alerts.slice(0, 3).map(a => {
+            const encodedId = encodeURIComponent(a.id);
+            return `
+              <div class="list-item" onclick="window.location.href='pages/manicure-details.html?id=${encodedId}'">
+                <div class="item-info">
+                  <h3>${a.name}</h3>
+                  <p>${a.phone || 'Sem telefone'} • ${Utils.calculateDaysUntilExchange(a.nextExchangeDate)} dia${Utils.calculateDaysUntilExchange(a.nextExchangeDate) !== 1 ? 's' : ''}</p>
                 </div>
-              `;
-            }
-          } else {
-            document.getElementById('recent-manicures').innerHTML = `
-              <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-                <h3>Nenhuma parceira cadastrada</h3>
-                <p>Clique no botão + para adicionar a primeira parceira</p>
+                <span class="badge badge-warning">Troca</span>
               </div>
             `;
-          }
-        } catch (error) {
-          console.error('Erro ao carregar dados:', error);
-          document.getElementById('recent-manicures').innerHTML = `
-            <div class="alert alert-danger">
-              <strong>Erro!</strong> Não foi possível carregar as informações. Tente novamente.
+          }).join('');
+          console.log('✅ Seção de alertas renderizada');
+        } else {
+          document.getElementById('alerts-section').style.display = 'none';
+          console.log('ℹ️ Nenhum alerta para exibir');
+        }
+
+        console.log('📋 Renderizando lista de manicures recentes...');
+        const recentList = document.getElementById('recent-manicures');
+        
+        if (allManicures.length > 0) {
+          console.log(`🎨 Renderizando ${allManicures.length} manicures (mostrando até 3)...`);
+          
+          // Ordena por data de criação (mais recentes primeiro) e pega as 3 últimas
+          const sortedManicures = [...allManicures].sort((a, b) => {
+            const dateA = new Date(a.createdAt || a.startDate || 0);
+            const dateB = new Date(b.createdAt || b.startDate || 0);
+            return dateB - dateA; // Ordem decrescente (mais recentes primeiro)
+          });
+          
+          const html = sortedManicures.slice(0, 3).map(m => {
+            console.log(`  - Renderizando: ${m.name} (ID: ${m.id})`);
+            const encodedId = encodeURIComponent(m.id);
+            return `
+              <div class="list-item" onclick="window.location.href='pages/manicure-details.html?id=${encodedId}'">
+                <div class="item-info">
+                  <h3>${m.name}</h3>
+                  <p>${m.phone || 'Sem telefone'} • Plano ${m.planType || '-'} dias</p>
+                  ${m.nextExchangeDate ? `<p style="font-size: 0.8125rem; margin-top: 0.25rem;">Próxima troca: ${Utils.formatDate(m.nextExchangeDate)}</p>` : ''}
+                </div>
+                <span class="badge ${m.status === 'active' ? 'badge-success' : 'badge-secondary'}">
+                  ${m.status === 'active' ? 'Ativa' : 'Inativa'}
+                </span>
+              </div>
+            `;
+          }).join('');
+          
+          recentList.innerHTML = html;
+          console.log('✅ Lista de manicures renderizada com sucesso!');
+        } else {
+          console.log('⚠️ Nenhuma manicure para exibir - mostrando empty state');
+          recentList.innerHTML = `
+            <div class="empty-state">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity: 0.2; margin-bottom: 1rem;">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+              </svg>
+              <h3>Nenhuma manicure cadastrada</h3>
+              <p>Comece adicionando sua primeira manicure ao sistema</p>
+              <button class="btn btn-primary" onclick="window.location.href='pages/new-manicure.html'">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Adicionar Manicure</span>
+              </button>
             </div>
           `;
         }
+
+        Utils.hideLoading();
+        console.log('═'.repeat(60));
+        console.log('✅ DASHBOARD CARREGADO COM SUCESSO!');
+        console.log('═'.repeat(60));
+      } catch (e) { 
+        console.error('═'.repeat(60));
+        console.error('❌ ERRO CRÍTICO AO CARREGAR DASHBOARD');
+        console.error('═'.repeat(60));
+        console.error('❌ Erro:', e);
+        console.error('❌ Mensagem:', e.message);
+        console.error('❌ Stack:', e.stack);
+        console.error('═'.repeat(60));
+        
+        document.getElementById('recent-manicures').innerHTML = 
+          `<div style="color: var(--color-danger); text-align: center; padding: 2rem;">
+            ❌ Erro ao carregar dados<br>
+            <small style="font-size: 0.875rem; opacity: 0.8;">${e.message}</small>
+          </div>`;
+        Utils.hideLoading();
+      }
+    }
+
+    // ✅ USA onAuthStateChanged DIRETAMENTE (igual ao manicures.html)
+    console.log('═'.repeat(60));
+    console.log('🔐 INICIANDO VERIFICAÇÃO DE AUTENTICAÇÃO');
+    console.log('═'.repeat(60));
+    
+    onAuthStateChanged(auth, async (user) => {
+      console.log('🔄 onAuthStateChanged disparado');
+      console.log('👤 Usuário recebido:', user);
+      
+      if (user) {
+        // ✅ USUÁRIO AUTENTICADO
+        console.log('═'.repeat(60));
+        console.log('✅ USUÁRIO AUTENTICADO!');
+        console.log('═'.repeat(60));
+        console.log('📧 Email:', user.email);
+        console.log('🆔 UID:', user.uid);
+        console.log('═'.repeat(60));
+        
+        currentUser = user;
+        document.getElementById('user-info').textContent = user.email;
+        
+        console.log('📞 Chamando loadDashboard()...');
+        await loadDashboard();
+        
       } else {
-        window.location.href = 'pages/login.html';
+        // ❌ NÃO AUTENTICADO
+        console.log('═'.repeat(60));
+        console.log('⚠️ USUÁRIO NÃO AUTENTICADO');
+        console.log('═'.repeat(60));
+        
+        document.getElementById('user-info').textContent = 'Não autenticado';
+        
+        document.getElementById('recent-manicures').innerHTML = `
+          <div class="empty-state">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.3; color: var(--color-warning);">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M12 8v4"/>
+              <path d="M12 16h.01"/>
+            </svg>
+            <h3 style="color: var(--color-warning);">Acesso Restrito</h3>
+            <p>Você precisa estar autenticado para acessar esta página</p>
+            <button class="btn btn-primary" onclick="window.location.href='pages/login.html'">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              <span>Fazer Login</span>
+            </button>
+          </div>
+        `;
+        Utils.hideLoading();
       }
     });
 
     // Logout
-    document.getElementById('logout-btn').onclick = () => {
-      signOut(auth).then(() => {
+    document.getElementById('logout-btn').onclick = async () => {
+      try {
+        await signOut(auth);
         window.location.href = 'pages/login.html';
-      }).catch((error) => {
-        console.error('Erro ao sair:', error);
-        alert('Erro ao fazer logout. Tente novamente.');
-      });
+      } catch (e) {
+        console.error('Erro ao fazer logout:', e);
+      }
     };
+
+    // Refresh dashboard every 30 seconds
+    setInterval(() => {
+      if (currentUser) {
+        loadDashboard();
+      }
+    }, 30000);
   </script>
 </body>
 </html>
