@@ -11,20 +11,21 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --color-primary: #d946ef;
-      --color-primary-dark: #a21caf;
-      --color-secondary: #fbbf24;
-      --color-bg: #fafafa;
+      --color-primary: #0033A0;
+      --color-primary-light: #0047CC;
+      --color-primary-dark: #002080;
+      --color-secondary: #C8102E;
+      --color-bg: #F5F5F7;
       --color-surface: #ffffff;
-      --color-text: #1f2937;
-      --color-text-muted: #6b7280;
-      --color-border: #e5e7eb;
-      --color-success: #10b981;
-      --color-warning: #f59e0b;
-      --color-danger: #ef4444;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --color-text: #212529;
+      --color-text-muted: #6c757d;
+      --color-border: #dee2e6;
+      --color-success: #28a745;
+      --color-warning: #ffc107;
+      --color-danger: #dc3545;
+      --shadow-sm: 0 2px 4px rgba(0, 51, 160, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 51, 160, 0.12);
+      --shadow-lg: 0 8px 24px rgba(0, 51, 160, 0.16);
       --radius: 16px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -56,7 +57,7 @@
       justify-content: space-between; 
       padding: 0 1rem; 
       z-index: 100; 
-      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.2); 
+      box-shadow: var(--shadow-md); 
     }
     
     .mobile-header h1 { 
@@ -137,13 +138,13 @@
     }
     
     .badge-success { 
-      background: #d1fae5; 
-      color: #065f46; 
+      background: #d4edda; 
+      color: var(--color-success); 
     }
     
     .badge-warning { 
-      background: #fef3c7; 
-      color: #92400e; 
+      background: #fff3cd; 
+      color: #856404; 
     }
     
     .badge-secondary { 
@@ -152,8 +153,8 @@
     }
     
     .badge-danger {
-      background: #fee2e2;
-      color: #991b1b;
+      background: #f8d7da;
+      color: var(--color-danger);
     }
     
     .header-actions { 
@@ -363,7 +364,7 @@
     }
     
     .btn-primary:hover:not(:disabled) {
-      box-shadow: 0 4px 12px rgba(217, 70, 239, 0.4);
+      box-shadow: var(--shadow-md);
       transform: translateY(-2px);
     }
     
@@ -395,7 +396,7 @@
     .form-control:focus {
       outline: none;
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.1);
+      box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
     }
     
     textarea.form-control {
@@ -485,12 +486,12 @@
     
     .file-upload-area:hover {
       border-color: var(--color-primary);
-      background: rgba(217, 70, 239, 0.05);
+      background: rgba(0, 51, 160, 0.05);
     }
     
     .file-upload-area.has-file {
       border-color: var(--color-success);
-      background: rgba(16, 185, 129, 0.05);
+      background: rgba(40, 167, 69, 0.05);
     }
     
     @media (min-width: 768px) { 
