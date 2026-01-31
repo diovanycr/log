@@ -32,15 +32,15 @@
     }
     body { font-family: 'Outfit', sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     .app-container { min-height: 100vh; display: flex; flex-direction: column; }
-    .mobile-header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: var(--gradient-blue); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; z-index: 100; box-shadow: var(--shadow-md); }
+    .mobile-header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: var(--color-surface); color: var(--color-text); display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; z-index: 100; box-shadow: var(--shadow-md); border-bottom: 1px solid var(--color-border); }
     .mobile-header img { height: 40px; }
-    .menu-toggle { background: none; border: none; color: white; cursor: pointer; padding: 0.5rem; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: var(--transition); }
-    .menu-toggle:active { background: rgba(255, 255, 255, 0.1); }
+    .menu-toggle { background: none; border: none; color: var(--color-primary); cursor: pointer; padding: 0.5rem; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: var(--transition); }
+    .menu-toggle:active { background: rgba(0, 51, 160, 0.1); }
     .nav-drawer { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; background: var(--color-surface); box-shadow: var(--shadow-lg); z-index: 200; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; }
     .nav-drawer.open { left: 0; }
     .nav-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 150; opacity: 0; visibility: hidden; transition: var(--transition); }
     .nav-overlay.open { opacity: 1; visibility: visible; }
-    .drawer-header { background: var(--gradient-blue); color: white; padding: 2rem 1.5rem 1.5rem; }
+    .drawer-header { background: var(--color-surface); color: var(--color-text); padding: 2rem 1.5rem 1.5rem; border-bottom: 2px solid var(--color-border); }
     .drawer-nav { padding: 1rem 0; flex: 1; }
     .nav-item { list-style: none; }
     .nav-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; color: var(--color-text); text-decoration: none; transition: var(--transition); font-weight: 500; border-left: 3px solid transparent; }
@@ -325,7 +325,7 @@
   </script>
 
   <script type="module">
-    console.log('?? Iniciando página de alertas...');
+    console.log('🔄 Iniciando página de alertas...');
     
     import { auth } from '../config/firebase-config.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -428,24 +428,24 @@
     }
 
     async function loadAlerts() {
-      console.log('?? Carregando alertas...');
+      console.log('🔄 Carregando alertas...');
       try {
         Utils.showLoading();
         
         const data = await dbManager.getAllManicures();
         
-        console.log('?? Dados recebidos:', data);
+        console.log('📦 Dados recebidos:', data);
         
         if (!data) {
-          console.log('?? Nenhuma manicure encontrada');
+          console.log('⚠️ Nenhuma manicure encontrada');
           allManicures = [];
         } else {
           allManicures = Object.keys(data).map(k => {
             const manicure = { id: k, ...data[k] };
-            console.log('? Manicure carregada:', manicure.name);
+            console.log('✅ Manicure carregada:', manicure.name);
             return manicure;
           });
-          console.log(`? Total de ${allManicures.length} manicures carregadas`);
+          console.log(`✅ Total de ${allManicures.length} manicures carregadas`);
         }
         
         if (currentUser) {
@@ -455,8 +455,8 @@
         const overdueAlerts = Utils.getOverdueAlerts(allManicures);
         const upcomingAlerts = Utils.getUpcomingAlerts(allManicures);
 
-        console.log(`?? Alertas atrasados: ${overdueAlerts.length}`);
-        console.log(`?? Alertas próximos: ${upcomingAlerts.length}`);
+        console.log(`🔔 Alertas atrasados: ${overdueAlerts.length}`);
+        console.log(`🔔 Alertas próximos: ${upcomingAlerts.length}`);
 
         document.getElementById('overdue-count').textContent = overdueAlerts.length;
         document.getElementById('upcoming-count').textContent = upcomingAlerts.length;
@@ -482,18 +482,18 @@
         }
 
         Utils.hideLoading();
-        console.log('? Alertas carregados com sucesso!');
+        console.log('✅ Alertas carregados com sucesso!');
       } catch (error) {
-        console.error('? Erro ao carregar alertas:', error);
+        console.error('❌ Erro ao carregar alertas:', error);
         Utils.hideLoading();
       }
     }
 
-    console.log('?? Verificando autenticação...');
+    console.log('🔐 Verificando autenticação...');
     
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log('? Usuário autenticado:', user.email);
+        console.log('✅ Usuário autenticado:', user.email);
         
         currentUser = user;
         document.getElementById('user-info').textContent = user.email;
@@ -501,7 +501,7 @@
         await loadAlerts();
         
       } else {
-        console.log('?? Usuário não autenticado');
+        console.log('⚠️ Usuário não autenticado');
         document.getElementById('user-info').textContent = 'Não autenticado';
         
         document.getElementById('no-alerts-section').innerHTML = `
