@@ -6,8 +6,8 @@
   <title>Dashboard - Marriê Beauty | Tramontina</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://assets.betalabs.net/fit-in/120x55/production/marriebeauty/extra_fields/18/phpgNGxOf1758734153.png">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💅</text></svg>">
   <style>
     * {
       margin: 0;
@@ -45,7 +45,6 @@
       overflow-x: hidden;
     }
 
-    /* Mobile-First Layout */
     .app-container {
       min-height: 100vh;
       display: flex;
@@ -68,18 +67,6 @@
       z-index: 100;
       box-shadow: var(--shadow-md);
       border-bottom: 1px solid var(--color-border);
-    }
-
-    .mobile-header-logos {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .mobile-header-logos img {
-      height: 32px;
-      width: auto;
-      object-fit: contain;
     }
 
     .menu-toggle {
@@ -234,29 +221,6 @@
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--color-border);
       transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--card-color, var(--color-primary)), transparent);
-      opacity: 0;
-      transition: var(--transition);
-    }
-
-    .stat-card:active::before {
-      opacity: 1;
-    }
-
-    .stat-card:active {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
     }
 
     .stat-card-header {
@@ -279,20 +243,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--icon-bg);
     }
 
     .stat-card-value {
       font-size: 2rem;
       font-weight: 700;
       color: var(--color-text);
-      margin-bottom: 0.25rem;
       font-family: 'Playfair Display', serif;
-    }
-
-    .stat-card-desc {
-      font-size: 0.875rem;
-      color: var(--color-text-muted);
     }
 
     /* Section Cards */
@@ -317,9 +274,6 @@
     .section-title {
       font-size: 1.125rem;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     .view-all {
@@ -363,35 +317,6 @@
       color: var(--color-text-muted);
     }
 
-    /* Alert Banner */
-    .alert-banner {
-      background: linear-gradient(135deg, #fff8e1, #ffe680);
-      border-left: 4px solid var(--color-warning);
-      padding: 1rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: start;
-      gap: 0.75rem;
-    }
-
-    .alert-banner-icon {
-      flex-shrink: 0;
-      color: var(--color-warning);
-    }
-
-    .alert-banner-content h4 {
-      font-size: 0.9375rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      color: #704c06;
-    }
-
-    .alert-banner-content p {
-      font-size: 0.875rem;
-      color: #704c06;
-    }
-
     /* Badges */
     .badge {
       padding: 0.375rem 0.75rem;
@@ -407,19 +332,9 @@
       color: var(--color-success);
     }
 
-    .badge-warning {
-      background: #fff3cd;
-      color: #856404;
-    }
-
     .badge-danger {
       background: #f8d7da;
       color: var(--color-danger);
-    }
-
-    .badge-secondary {
-      background: #e5e7eb;
-      color: #4b5563;
     }
 
     /* Buttons */
@@ -445,26 +360,17 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .btn-primary:active {
-      transform: translateY(1px);
-      box-shadow: var(--shadow-md);
-    }
-
     .btn-secondary {
       background: var(--color-surface);
       color: var(--color-text);
       border: 1px solid var(--color-border);
     }
 
-    .btn-secondary:active {
-      background: var(--color-bg);
-    }
-
     .btn-full {
       width: 100%;
     }
 
-    /* Floating Action Button */
+    /* FAB */
     .fab {
       position: fixed;
       bottom: 2rem;
@@ -488,52 +394,6 @@
       transform: scale(0.9);
     }
 
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .bottom-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.5rem 1rem;
-      color: var(--color-text-muted);
-      text-decoration: none;
-      transition: var(--transition);
-      flex: 1;
-      max-width: 100px;
-    }
-
-    .bottom-nav-item:active {
-      background: rgba(0, 51, 160, 0.05);
-    }
-
-    .bottom-nav-item.active {
-      color: var(--color-primary);
-    }
-
-    .bottom-nav-item svg {
-      stroke: currentColor;
-    }
-
-    .bottom-nav-item span {
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
     /* Empty State */
     .empty-state {
       text-align: center;
@@ -548,7 +408,6 @@
     .empty-state h3 {
       font-size: 1.125rem;
       margin-bottom: 0.5rem;
-      color: var(--color-text);
     }
 
     .empty-state p {
@@ -588,7 +447,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Loading Animation */
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
@@ -598,24 +456,17 @@
       animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
-    /* Tablet Styles */
+    /* Tablet */
     @media (min-width: 768px) {
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .mobile-header-logos img {
-        height: 36px;
-      }
-
       .page-title {
         font-size: 2rem;
       }
-
       .main-content {
         padding: 2rem;
       }
-
       .fab {
         bottom: 2rem;
         right: 2rem;
@@ -624,18 +475,15 @@
       }
     }
 
-    /* Desktop Styles */
+    /* Desktop */
     @media (min-width: 1024px) {
       .mobile-header,
-      .bottom-nav,
       .fab {
         display: none;
       }
-
       .app-container {
         flex-direction: row;
       }
-
       .nav-drawer {
         position: relative;
         left: 0;
@@ -644,15 +492,12 @@
         box-shadow: none;
         border-right: 1px solid var(--color-border);
       }
-
       .nav-overlay {
         display: none;
       }
-
       .drawer-footer {
         position: sticky;
       }
-
       .main-content {
         margin-top: 0;
         flex: 1;
@@ -661,23 +506,16 @@
         margin-right: auto;
         padding: 2.5rem;
       }
-
       .page-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
       }
-
-      .stat-card:hover::before {
-        opacity: 1;
-      }
-
       .stat-card:hover {
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
       }
-
       .list-item:hover {
         transform: scale(0.98);
         background: #f3f4f6;
@@ -696,23 +534,16 @@
           <line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
         <!-- Logo Marriê Beauty -->
-        <img src="https://assets.betalabs.net/fit-in/120x0/production/marriebeauty/extra_fields/17/phpzYWXRK1758825485.png" 
-             alt="Marriê Beauty" 
-             style="height: 36px; width: auto;"
-             crossorigin="anonymous">
+        <img src="images/marrie-logo.png" alt="Marriê Beauty" style="height: 36px; width: auto;">
         
         <!-- Logo Tramontina -->
-        <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" 
-             alt="Tramontina" 
-             style="height: 32px; width: auto;"
-             crossorigin="anonymous">
+        <img src="images/tramontina-logo.png" alt="Tramontina" style="height: 32px; width: auto;">
       </div>
       <div style="width: 40px;"></div>
     </header>
 
-    <!-- Navigation Overlay -->
     <div class="nav-overlay" onclick="toggleNav()"></div>
 
     <!-- Navigation Drawer -->
@@ -720,18 +551,12 @@
       <div class="drawer-header">
         <!-- Logo Marriê Beauty -->
         <div style="margin-bottom: 1.5rem; text-align: center;">
-          <img src="https://assets.betalabs.net/fit-in/120x0/production/marriebeauty/extra_fields/17/phpzYWXRK1758825485.png" 
-               alt="Marriê Beauty" 
-               style="height: 50px; width: auto; max-width: 100%;"
-               crossorigin="anonymous">
+          <img src="images/marrie-logo.png" alt="Marriê Beauty" style="height: 50px; width: auto; max-width: 100%;">
         </div>
         
         <!-- Logo Tramontina -->
         <div style="margin-bottom: 1.5rem; text-align: center;">
-          <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" 
-               alt="Tramontina" 
-               style="height: 45px; width: auto; max-width: 100%;"
-               crossorigin="anonymous">
+          <img src="images/tramontina-logo.png" alt="Tramontina" style="height: 45px; width: auto; max-width: 100%;">
         </div>
         
         <p style="font-size: 0.9rem; color: #6c757d; text-align: center; font-weight: 500;">
@@ -797,10 +622,10 @@
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <div class="stat-card" style="--card-color: #0033A0; --icon-bg: rgba(0, 51, 160, 0.1);">
+        <div class="stat-card" style="--icon-bg: rgba(0, 51, 160, 0.1);">
           <div class="stat-card-header">
             <span class="stat-card-title">Total de Parceiras</span>
-            <span class="stat-card-icon">
+            <span class="stat-card-icon" style="background: rgba(0, 51, 160, 0.1);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0033A0" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                 <circle cx="9" cy="7" r="4"/>
@@ -810,10 +635,10 @@
           <div class="stat-card-value" id="total-manicures">0</div>
         </div>
 
-        <div class="stat-card" style="--card-color: #C8102E; --icon-bg: rgba(200, 16, 46, 0.1);">
+        <div class="stat-card">
           <div class="stat-card-header">
             <span class="stat-card-title">Trocas Pendentes</span>
-            <span class="stat-card-icon">
+            <span class="stat-card-icon" style="background: rgba(200, 16, 46, 0.1);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2">
                 <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
                 <line x1="12" y1="9" x2="12" y2="13"/>
@@ -839,7 +664,7 @@
       </div>
     </main>
 
-    <!-- Floating Action Button (Mobile) -->
+    <!-- FAB -->
     <button class="fab" onclick="window.location.href='pages/new-manicure.html'">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <line x1="12" y1="5" x2="12" y2="19"/>
@@ -854,7 +679,6 @@
   </div>
 
   <script>
-    // Navigation Toggle
     function toggleNav() {
       const drawer = document.getElementById('navDrawer');
       const overlay = document.querySelector('.nav-overlay');
@@ -862,7 +686,6 @@
       overlay.classList.toggle('open');
     }
 
-    // Close drawer when clicking a link (mobile)
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth < 1024) {
