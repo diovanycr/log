@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Gestão de Manicures</title>
+  <title>Login - Marriê Beauty | Tramontina</title>
+  <link rel="icon" href="../images/marrie-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -15,28 +16,30 @@
     }
 
     :root {
-      --color-primary: #d946ef;
-      --color-primary-dark: #a21caf;
-      --color-secondary: #fbbf24;
-      --color-bg: #fafafa;
+      --color-primary: #0033A0;
+      --color-primary-light: #0047CC;
+      --color-primary-dark: #002080;
+      --color-secondary: #C8102E;
+      --color-bg: #F5F5F7;
       --color-surface: #ffffff;
-      --color-text: #1f2937;
-      --color-text-muted: #6b7280;
-      --color-border: #e5e7eb;
-      --color-success: #10b981;
-      --color-warning: #f59e0b;
-      --color-danger: #ef4444;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+      --color-text: #212529;
+      --color-text-muted: #6c757d;
+      --color-border: #dee2e6;
+      --color-success: #28a745;
+      --color-warning: #ffc107;
+      --color-danger: #dc3545;
+      --shadow-sm: 0 2px 4px rgba(0, 51, 160, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 51, 160, 0.12);
+      --shadow-lg: 0 8px 24px rgba(0, 51, 160, 0.16);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 51, 160, 0.2);
+      --gradient-blue: linear-gradient(135deg, #0033A0 0%, #0047CC 100%);
       --radius: 16px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
       font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      background: var(--gradient-blue);
       color: var(--color-text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -120,39 +123,27 @@
       margin-bottom: 2rem;
     }
 
-    .logo {
-      width: 72px;
-      height: 72px;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      margin: 0 auto 1.5rem;
-      box-shadow: 0 8px 16px rgba(217, 70, 239, 0.3);
-      animation: sparkle 2s ease-in-out infinite;
+    .logo-container {
+      margin-bottom: 1.5rem;
     }
 
-    @keyframes sparkle {
-      0%, 100% {
-        transform: rotate(0deg) scale(1);
-      }
-      50% {
-        transform: rotate(180deg) scale(1.05);
-      }
+    .logo-marrie {
+      height: 80px;
+      margin: 0 auto 1rem;
+      display: block;
     }
 
-    .logo svg {
-      width: 36px;
-      height: 36px;
+    .logo-tramontina {
+      height: 45px;
+      margin: 0 auto;
+      display: block;
     }
 
     .login-card h1 {
       font-family: 'Playfair Display', serif;
       font-size: 1.875rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      background: var(--gradient-blue);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -187,19 +178,19 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      background: var(--gradient-blue);
       color: white;
-      box-shadow: 0 4px 12px rgba(217, 70, 239, 0.3);
+      box-shadow: var(--shadow-md);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(217, 70, 239, 0.4);
+      box-shadow: var(--shadow-lg);
     }
 
     .btn-primary:active {
       transform: translateY(0);
-      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.3);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-primary:disabled {
@@ -308,7 +299,7 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1rem;
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(40, 167, 69, 0.1);
       color: var(--color-success);
       border-radius: 8px;
       font-size: 0.8125rem;
@@ -325,6 +316,14 @@
       .login-card h1 {
         font-size: 2.25rem;
       }
+
+      .logo-marrie {
+        height: 100px;
+      }
+
+      .logo-tramontina {
+        height: 50px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -336,9 +335,12 @@
         font-size: 1.5rem;
       }
 
-      .logo {
-        width: 64px;
-        height: 64px;
+      .logo-marrie {
+        height: 70px;
+      }
+
+      .logo-tramontina {
+        height: 40px;
       }
     }
   </style>
@@ -347,13 +349,12 @@
   <div class="login-container">
     <div class="login-card">
       <div class="login-header">
-        <div class="logo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-          </svg>
+        <div class="logo-container">
+          <img src="../images/marrie-logo.png" alt="Marriê Beauty" class="logo-marrie">
+          <img src="https://assets.betalabs.net/production/marriebeauty/images/stores/1/logo_final_tramontina.png" alt="Tramontina" class="logo-tramontina">
         </div>
-        <h1>Gestão de Manicures</h1>
-        <p class="subtitle">Sistema de Controle de Kits</p>
+        <h1>Gestão de Assinaturas</h1>
+        <p class="subtitle">Controle de Kits Tramontina</p>
       </div>
 
       <div id="login-section">
@@ -377,7 +378,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              <span>Controle completo de manicures</span>
+              <span>Controle completo de parceiras</span>
             </li>
             <li class="feature-item">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -389,7 +390,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              <span>Gestão de comprovantes</span>
+              <span>Gestão de assinaturas Tramontina</span>
             </li>
           </ul>
         </div>
@@ -409,7 +410,7 @@
         </div>
         <p style="margin-top: 1rem;">
           Use sua conta Google para acessar<br>
-          o sistema de gestão de manicures
+          o sistema de gestão de assinaturas
         </p>
       </div>
     </div>
